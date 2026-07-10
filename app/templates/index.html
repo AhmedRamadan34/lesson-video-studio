@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson Video Studio</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <h1>🎬 Lesson Video Studio</h1>
+
+        <p class="subtitle">
+            Create Professional Lesson Videos Automatically
+        </p>
+
+    </header>
+
+    <form id="uploadForm">
+
+        <div class="upload-grid">
+
+            <!-- Images -->
+
+            <div class="upload-card">
+
+                <h2>🖼 Images</h2>
+
+                <div class="drop-zone" id="imageDrop">
+
+                    <div class="drop-icon">🖼</div>
+
+                    <h3>Drag Images Here</h3>
+
+                    <p>or Click to Browse</p>
+
+                    <input
+                        id="images"
+                        name="images"
+                        type="file"
+                        multiple
+                        hidden
+                        accept="image/*">
+
+                </div>
+
+            </div>
+
+            <!-- Audio -->
+
+            <div class="upload-card">
+
+                <h2>🎵 Audio</h2>
+
+                <div class="drop-zone" id="audioDrop">
+
+                    <div class="drop-icon">🎵</div>
+
+                    <h3>Drag Audio Here</h3>
+
+                    <p>or Click to Browse</p>
+
+                    <input
+                        id="audios"
+                        name="audios"
+                        type="file"
+                        multiple
+                        hidden
+                        accept="audio/*">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Lesson Files -->
+
+        <div class="lesson-files">
+
+            <h2>📂 Lesson Files</h2>
+
+            <div id="lessonFiles">
+
+                <div class="lesson-empty">
+                    No files selected yet.
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Generate -->
+
+        <button id="generateBtn" type="submit">
+
+            🎬 Generate Video
+
+        </button>
+
+    </form>
+
+    <!-- Progress -->
+
+    <div id="progressSection">
+
+        <div id="progressContainer">
+
+            <div id="progressBar"></div>
+
+        </div>
+
+        <p id="status">
+
+            Waiting...
+
+        </p>
+
+    </div>
+
+    <!-- Preview -->
+
+    <div id="resultSection">
+
+        <h2>🎥 Video Preview</h2>
+
+        <video
+            id="preview"
+            controls
+            style="display:none;">
+        </video>
+
+        <a
+            id="downloadBtn"
+            href="#"
+            download
+            style="display:none;">
+
+            ⬇ Download MP4
+
+        </a>
+
+    </div>
+
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+
+</html>
