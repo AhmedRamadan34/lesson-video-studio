@@ -135,7 +135,7 @@ class VideoService:
 
         clips = []
 
-        VIDEO_SIZE = (1920, 1080)
+        VIDEO_SIZE = (1280, 720)
 
         for scene in scenes:
 
@@ -143,7 +143,7 @@ class VideoService:
 
             image = (
                 ImageClip(str(scene["image"]))
-                .resized(height=1080)
+                .resized(height=720)
                 .with_duration(audio_clip.duration)
             )
 
@@ -172,9 +172,11 @@ class VideoService:
 
         final_video.write_videofile(
             str(output_path),
-            fps=30,
+            fps=24,
             codec="libx264",
-            audio_codec="aac"
+            audio_codec="aac",
+            preset="ultrafast",
+            threads=2
         )
 
         final_video.close()
