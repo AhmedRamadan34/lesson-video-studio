@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, UploadFile, File
+from fastapi import APIRouter, Request, UploadFile, File, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import uuid
@@ -14,10 +14,38 @@ templates = Jinja2Templates(directory="app/templates")
 
 
 @router.get("/", response_class=HTMLResponse)
-async def home(request: Request):
+async def login_page(request: Request):
+
     return templates.TemplateResponse(
-        "index.html",
-        {"request": request}
+        "login.html",
+        {
+            "request": request
+        }
+    )
+
+
+@router.post("/login")
+async def login(
+    request: Request,
+    username: str = Form(...),
+    password: str = Form(...)
+):
+
+    if username == "admin" and password == "123456":
+
+        return templates.TemplateResponse(
+            "index.html",
+            {
+                "request": request
+            }
+        )
+
+    return templates.TemplateResponse(
+        "login.html",
+        {
+            "request": request,
+            "error": "Invalid username or password."
+        }
     )
 
 
