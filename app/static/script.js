@@ -1,3 +1,11 @@
+// ==========================
+// Selected Files
+// ==========================
+
+let imageFiles = [];
+
+let audioFiles = [];
+
 const imageInput = document.getElementById("images");
 const audioInput = document.getElementById("audios");
 
@@ -13,9 +21,6 @@ const status = document.getElementById("status");
 
 const preview = document.getElementById("preview");
 const downloadBtn = document.getElementById("downloadBtn");
-
-let imageFiles = [];
-let audioFiles = [];
 
 /* ===========================
    Drag & Drop
@@ -49,7 +54,23 @@ function setupDrop(dropZone, input){
 
         dropZone.classList.remove("dragover");
 
-        input.files = e.dataTransfer.files;
+        for (const file of e.dataTransfer.files) {
+
+            const list = input === imageInput
+                ? imageFiles
+                : audioFiles;
+
+            const exists = list.some(
+                f => f.name.toLowerCase() === file.name.toLowerCase()
+            );
+
+            if (!exists) {
+
+                list.push(file);
+
+            }
+
+        }
 
         refreshUI();
 
@@ -67,15 +88,40 @@ setupDrop(audioDrop,audioInput);
 
 imageInput.addEventListener("change", () => {
 
-    imageFiles = [...imageInput.files];
+    [...imageInput.files].forEach(file => {
+
+        const exists = imageFiles.some(
+            f => f.name.toLowerCase() === file.name.toLowerCase()
+        );
+
+        if (!exists) {
+            imageFiles.push(file);
+        }
+
+    });
+
+    imageInput.value = "";
 
     refreshUI();
 
 });
 
+
 audioInput.addEventListener("change", () => {
 
-    audioFiles = [...audioInput.files];
+    [...audioInput.files].forEach(file => {
+
+        const exists = audioFiles.some(
+            f => f.name.toLowerCase() === file.name.toLowerCase()
+        );
+
+        if (!exists) {
+            audioFiles.push(file);
+        }
+
+    });
+
+    audioInput.value = "";
 
     refreshUI();
 
@@ -325,6 +371,14 @@ uploadForm.addEventListener("submit",async(e)=>{
         downloadBtn.style.display="inline-block";
 
         downloadBtn.href=result.video;
+
+        // Reset selected files
+
+        imageFiles = [];
+
+        audioFiles = [];
+
+        refreshUI();
 
     }
 
